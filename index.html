@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<style type="text/css">
+		.prop {
+			position: absolute;
+			height: 110px;
+			width: 100px;
+			background-image: url(hole.png);
+			background-size: 100% 100%;
+		}
+
+
+		.mole {
+			position: absolute;
+			height: 100px;
+			width: 100px;
+			transition: 1s;
+		}
+
+		.time {
+            position: absolute;
+            font-family: Arial;
+            color: limegreen;
+            top: 100px;
+        }
+
+        .buldy {
+        	background-image: url();
+        }
+	</style>
+</head>
+<body class="buldy">
+
+<!-- дивы норы чтобы появится -->
+	<div class="prop first" style="top: 100px; left: 500px"></div>
+	<div class="prop" style="top: 100px; left: 700px"></div>
+	<div class="prop" style="top: 100px; left: 900px"></div>
+
+	<div class="prop first" style="top: 300px; left: 500px"></div>
+	<div class="prop" style="top: 300px; left: 700px"></div>
+	<div class="prop" style="top: 300px; left: 900px"></div>
+
+	<div class="prop first" style="top: 500px; left: 500px"></div>
+	<div class="prop" style="top: 500px; left: 700px"></div>
+	<div class="prop" style="top: 500px; left: 900px"></div>
+
+	<h1 class="time">Осталось: <span class="timer">15</span></h1>
+	<h1 class="scr">Очков: <span class="score">0</span></h1>
+
+
+
+<script type="text/javascript">
+
+	let leftA = [500, 700, 900];
+	let topA = [100, 300, 500];
+	let name = ["good", "bad"];
+	let firstDiv = document.querySelector('.first');
+	let timer = document.querySelector('.timer');
+	let time = document.querySelector('.time');
+	let score = document.querySelector('.score')
+	let point = 0;
+	let x = 15;
+
+	let CreateMole = function(){
+		let mole = document.createElement('div')
+		document.body.appendChild(mole);
+		firstDiv.before(mole)
+		mole.classList.add('mole');
+		let randomX = Math.round(Math.random()*2);
+		let randomY = Math.round(Math.random()*2);
+		mole.style.top = topA[randomY] + "px"
+		mole.style.left = leftA[randomX] + "px";
+		let typeIndex = Math.round(Math.random()*1)
+		mole.myType = name[typeIndex]
+
+		if(mole.myType=="good"){
+			mole.style.backgroundImage = "url(mole.png)"
+			mole.style.backgroundSize = "100% 100%"
+		}
+
+		else if(mole.myType=="bad"){
+			mole.style.backgroundImage = "url(bomb.png)"
+			mole.style.backgroundSize = "100% 100%"
+		}
+
+		movetop = function(){
+			mole.style.top = topA[randomY] - 50 + "px"
+		}
+		setTimeout(movetop, 1000)
+
+		movebottom = function(){
+			mole.style.top = topA[randomY] + 10 + "px"
+		}
+		setTimeout(movebottom, 2000)
+
+		mole.onclick = function(){
+			mole.style.display = "none"
+
+			if (mole.myType=='bad') {
+				point = point - 100
+			}
+
+			else if (mole.myType=='good') {
+				point = point + 40
+			}
+			score.innerHTML = point;
+		}
+	}
+
+	let Timer = function(){
+        x = x - 1
+        timer.innerHTML = x
+
+        if(x<=11){
+            time.style.color = "yellow"
+        }
+
+        if(x<=7){
+            time.style.color = "orange"
+        }
+
+        if(x<=3){
+            time.style.color = "red"
+        }
+    }
+
+	let endGame = function(){
+		clearInterval(interval1)
+		clearInterval(interval2)
+
+		if(point>=160){
+			alert('урааа')
+		}
+
+		else {
+			alert('фууу')
+		}
+	}
+
+
+	interval1 = setInterval(Timer, 1000)
+	interval2 = setInterval(CreateMole, 1000)
+	setTimeout(endGame, 15000)
+/*
+
+	массив лефт = [500, 700, 900]
+	массив имя = ["хороший", "плохой"]
+
+	функция создания кротов = {
+		создается див
+		задаются свойства(размер и цвет)
+		див топ = 100
+		див лефт = массив лефт[рандомный индекс]
+		див имя = имя[рандомный индекс2]
+
+		если(див имя=="хороший") {
+			цвет = зеленый
+		}
+
+		если(див имя=="плохой") {
+			цвет = красный
+		}
+
+		функция показать = {
+			див меняет топ = 50
+		}
+
+		таймаут(показать, 1000)
+
+		функция скрыть = {
+			див меняет топ = 100
+		}
+		таймаут(скрыть, 2000)
+	}
+
+	интервал(функция создания кротов, 1000)
+*/
+</script>
+</body>
+</html>
