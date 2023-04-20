@@ -31,6 +31,20 @@
         .buldy {
         	background-image: url();
         }
+
+        .textm {
+        	position: absolute;
+        	color: black;
+            text-shadow: 0px 4px 6px rgba(0, 0, 0, 1.0);
+            font-size: 300px;
+            font-family: Courier New;
+        }
+
+        .pozor {
+        	left: 200px;
+        	top: 250px;
+        	display: none;
+        }
 	</style>
 </head>
 <body class="buldy">
@@ -48,6 +62,8 @@
 	<div class="prop" style="top: 500px; left: 700px"></div>
 	<div class="prop" style="top: 500px; left: 900px"></div>
 
+
+	<h1 class="textm pozor">Позорник!</h1>
 	<h1 class="time">Осталось: <span class="timer">15</span></h1>
 	<h1 class="scr">Очков: <span class="score">0</span></h1>
 
@@ -62,6 +78,7 @@
 	let timer = document.querySelector('.timer');
 	let time = document.querySelector('.time');
 	let score = document.querySelector('.score')
+	let pozor = document.querySelector('.pozor')
 	let point = 0;
 	let x = 15;
 
@@ -132,12 +149,46 @@
 		clearInterval(interval1)
 		clearInterval(interval2)
 
-		if(point>=160){
-			alert('урааа')
+		
+
+		if(point==0){
+			pozor.style.display = "block"
 		}
 
-		else {
-			alert('фууу')
+		if(point==40){
+			alert('Отвратительно!')
+		}
+
+		if(point==80){
+			alert('Ужасно')
+		}
+
+		if(point==120){
+			alert('Плохо')
+		}
+
+		if(point==160){
+			alert('Так себе')
+		}
+
+		if(point==200) {
+			alert('Неплохо')
+		}
+
+		if(point==240){
+			alert('А ты хорош')
+		}
+
+		if(point==280){
+			alert('Отлично!')
+		}
+
+		if(point==320){
+			alert('Боженька!!!')
+		}
+
+		if(point==-40){
+			alert('aaas')
 		}
 	}
 
